@@ -1,7 +1,7 @@
-
-
 var express = require('express'),
-  config = require('./config/config');
+config = require('./config/config'),
+passport = require('./config/passport');
+
 
 var app = express();
 

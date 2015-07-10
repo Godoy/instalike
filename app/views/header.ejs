@@ -10,3 +10,19 @@
   <% } %>
 </head>
 <body>
+  
+  <% console.log(user); %>
+	<% if (!user) { %>
+		<p>
+      <% console.log("nao logado view"); %>
+		<a href="/">Home</a> | 
+		<a href="/login">Log In</a>
+		</p>
+	<% } else { %>
+		<p>
+      <% console.log("logado view"); %>
+		<a href="/">Home</a> | 
+		<a href="/account">Account</a> | 
+		<a href="/logout">Log Out</a>
+		</p>
+	<% } %>

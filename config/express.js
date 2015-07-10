@@ -8,6 +8,9 @@ var bodyParser = require('body-parser');
 var compress = require('compression');
 var methodOverride = require('method-override');
 
+var passport = require('passport');
+var passport = require('passport');
+
 module.exports = function(app, config) {
   app.set('views', config.root + '/app/views');
   app.set('view engine', 'ejs');
@@ -24,6 +27,16 @@ module.exports = function(app, config) {
   }));
   app.use(cookieParser());
   app.use(compress());
+  
+  
+  //app.use(express.session({ secret: '2712ba565fdb4f61a494f337a8ffe64f' }));
+   // Initialize Passport!  Also use passport.session() middleware, to support
+   // persistent login sessions (recommended).
+   app.use(passport.initialize());
+   app.use(passport.session());
+   //app.use(app.router);
+  
+  
   app.use(express.static(config.root + '/public'));
   app.use(methodOverride());
 
@@ -32,30 +45,30 @@ module.exports = function(app, config) {
     require(controller)(app);
   });
 
-  app.use(function (req, res, next) {
-    var err = new Error('Not Found');
-    err.status = 404;
-    next(err);
-  });
+  // app.use(function (req, res, next) {
+  //   var err = new Error('Not Found');
+  //   err.status = 404;
+  //   next(err);
+  // });
   
-  if(app.get('env') === 'development'){
-    app.use(function (err, req, res, next) {
-      res.status(err.status || 500);
-      res.render('error', {
-        message: err.message,
-        error: err,
-        title: 'error'
-      });
-    });
-  }
+  // if(app.get('env') === 'development'){
+//     app.use(function (err, req, res, next) {
+//       res.status(err.status || 500);
+//       res.render('error', {
+//         message: err.message,
+//         error: err,
+//         title: 'error'
+//       });
+//     });
+//   }
 
-  app.use(function (err, req, res, next) {
-    res.status(err.status || 500);
-      res.render('error', {
-        message: err.message,
-        error: {},
-        title: 'error'
-      });
-  });
+  // app.use(function (err, req, res, next) {
+//     res.status(err.status || 500);
+//       res.render('error', {
+//         message: err.message,
+//         error: {},
+//         title: 'error'
+//       });
+//   });
 
 };
